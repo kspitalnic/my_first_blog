@@ -20,7 +20,13 @@ router.get('/:id', (req, res) => {
         attributes: { exclude: ['password'] },
         where: {
           id: req.params.id
-        }
+        },
+        include: [
+            {
+              model: Post,
+              attributes: ['id', 'title', 'contnet', 'created_at']
+            }
+          ]
       })
         .then(dbUserData => {
           if (!dbUserData) {
@@ -85,7 +91,6 @@ User.findOne({
       res.status(400).json({ message: 'No user with that email address!' });
       return;
     }
-
     // Verify user
     const validPassword = dbUserData.checkPassword(req.body.password);
     if (!validPassword) {
@@ -94,7 +99,6 @@ User.findOne({
       }
       
       res.json({ user: dbUserData, message: 'You are now logged in!' });
-
   });    
   })
 
