@@ -8,6 +8,7 @@ Comment.init(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      allowNull: false,
       autoIncrement: true
     },
     user_id: {
@@ -28,15 +29,17 @@ Comment.init(
       }, 
       comment: {
           type: DataTypes.STRING, 
-          allowNull: false
+          allowNull: true,
+          validate: {
+            len: [1]
+          }
       }
     },
   {
     sequelize,
-    timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'vote'
+    modelName: 'comment'
   }
 );
 

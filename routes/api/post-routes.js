@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post, User } = require('../../models');
+const { Post, User, Comment } = require('../../models');
 
 // get all users
 router.get('/', (req, res) => {
@@ -10,7 +10,11 @@ router.get('/', (req, res) => {
             {
               model: User,
               attributes: ['username']
-            }
+            },
+            {
+              model: Comment,
+              attributes: ['id', 'comment', 'post_id', 'user_id', 'created_at'],
+            },
           ]
     })
     .then(dbPostData => res.json(dbPostData))
@@ -30,7 +34,11 @@ router.get('/:id', (req, res) => {
         {
           model: User,
           attributes: ['username']
-        }
+        },
+        {
+          model: Comment,
+          attributes: ['id', 'comment', 'post_id', 'user_id', 'created_at'],
+        },
       ]
     })
       .then(dbPostData => {
@@ -59,6 +67,34 @@ router.post('/', (req, res) => {
         res.status(500).json(err);
       });
   });
+
+  // PUT /api/posts/comment
+router.put('/comment', (req, res) => {
+    Comment.create({
+        user_id: req.body.user_id,
+        post_id: req.body.post_id,
+        comment: req.body.comment
+    }).then(() => {
+        // then find the post we just voted on
+        return Post.findOne({
+          where: {
+            id: req.body.post_id
+          },
+          attributes: [
+            'id',
+            'content',
+            'title',
+            'created_at',
+            'comment'
+          ]
+        })
+        .then(dbPostData => res.json(dbPostData))
+        .catch(err => {
+          console.log(err);
+          res.status(400).json(err);
+        });
+    })
+});
   
 router.put('/:id', (req, res) => {
     Post.update(
@@ -101,7 +137,8 @@ router.put('/:id', (req, res) => {
         console.log(err);
         res.status(500).json(err);
       });
-  });
+  }
+)
 
 
   module.exports = router;
