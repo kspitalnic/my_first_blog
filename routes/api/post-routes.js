@@ -14,7 +14,12 @@ router.get('/', (req, res) => {
             {
               model: Comment,
               attributes: ['id', 'comment', 'post_id', 'user_id', 'created_at'],
-            },
+              include: [
+                {
+                  model: User,
+                  attributes: ['username']
+                },
+              ]}
           ]
     })
     .then(dbPostData => res.json(dbPostData))
@@ -38,6 +43,12 @@ router.get('/:id', (req, res) => {
         {
           model: Comment,
           attributes: ['id', 'comment', 'post_id', 'user_id', 'created_at'],
+          include: [
+            {
+              model: User,
+              attributes: ['username']
+            },
+          ]
         },
       ]
     })
@@ -68,33 +79,6 @@ router.post('/', (req, res) => {
       });
   });
 
-  // PUT /api/posts/comment
-router.put('/comment', (req, res) => {
-    Comment.create({
-        user_id: req.body.user_id,
-        post_id: req.body.post_id,
-        comment: req.body.comment
-    }).then(() => {
-        // then find the post we just voted on
-        return Post.findOne({
-          where: {
-            id: req.body.post_id
-          },
-          attributes: [
-            'id',
-            'content',
-            'title',
-            'created_at',
-            'comment'
-          ]
-        })
-        .then(dbPostData => res.json(dbPostData))
-        .catch(err => {
-          console.log(err);
-          res.status(400).json(err);
-        });
-    })
-});
   
 router.put('/:id', (req, res) => {
     Post.update(
