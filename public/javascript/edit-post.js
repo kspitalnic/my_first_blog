@@ -1,3 +1,5 @@
+console.log('file loaded');
+
 async function editFormHandler(event) {
     event.preventDefault();
   
