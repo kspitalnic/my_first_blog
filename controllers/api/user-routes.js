@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // GET /api/users
 router.get('/', (req, res) => {
@@ -93,7 +94,7 @@ router.post('/login', (req, res) => {
           req.session.username = dbUserData.username;
           req.session.loggedIn = true;
 
-          res.json({ user: dbUserData, message: 'Welcome to XYZ Cars! '});
+          res.json({ user: dbUserData, message: 'Welcome to tech blog! '});
       });
   });    
 });
