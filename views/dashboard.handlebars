@@ -21,10 +21,12 @@
     {{#each posts as |post|}}
     <li>
       {{> post-info post}}
-      <a href="//edit/{{post.id}}" class="edit-link">Edit post</a>
+      <a href="/dashboard/edit/{{post.id}}" class="edit-link">Edit post</a>
     </li>
     {{/each}}
   </ol>
+  {{else}}
+  <h4>You have not created any posts yet!</h4>
 </section>
 {{/if}}
 
