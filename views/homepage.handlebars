@@ -4,7 +4,8 @@
     <article class="post">
       <div class="title">
         {{post.title}}
-        <span>({{post.comment}})</span>
+        <br>
+      {{> post-info post}}
       </div>
       <div class="meta">
         <a href="/post/{{post.id}}">{{post.comments.length}} comment(s)</a>
