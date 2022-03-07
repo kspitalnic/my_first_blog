@@ -42,7 +42,7 @@ router.get('/', withAuth, (req, res) => {
 });
 
 router.get('/edit/:id', withAuth, (req, res) => {
-  Post.findByPk(req.params.id, {
+  Post.findOne(req.params.id, {
     attributes: [
         'id',
         'title',
@@ -73,7 +73,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
           loggedIn: true
         });
       } else {
-        res.status(404).end();
+        res.status(404).json({message: 'No post found'});
       }
     })
     .catch(err => {
@@ -81,7 +81,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
     });
 });
 
-router.get('/create/', withAuth, (req, res) => {
+router.get('/create', withAuth, (req, res) => {
   Post.findAll({
     where: {
       user_id: req.session.user_id
