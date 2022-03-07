@@ -9,22 +9,12 @@
     </div>
         <div>
         <label for="post-content">post content:</label>
-      <input class="textarea" name="post-content" type="text" value="{{post_content}}" />
+      <input class="textarea" name="post-content" type="text" value="{{post.post_content}}" />
     </div>
     <button type="submit">Save post</button>
     <button type="button" class="delete-post-btn">Delete post</button>
   </form>
 </article>
-
-<form class="comment-form">
-  <div>
-    <textarea name="comment-body"></textarea>
-  </div>
-
-  <div>
-    <button type="submit">add comment</button>
-  </div>
-</form>
 
 {{> comments post.comments}}
 
