@@ -9,10 +9,7 @@
     </div>
         <div>
         <label for="post-content">post content:</label>
-      <input class="textarea" name="post-content" type="text" value="{{post.post_content}}" />
-    </div>
-    <div>
-      <a href="/post/{{post.id}}">{{post.comments.length}} {{format_plural "comment" post.comments.length}}</a>
+      <input class="textarea" name="post-content" type="text" value="{{post_content}}" />
     </div>
     <button type="submit">Save post</button>
     <button type="button" class="delete-post-btn">Delete post</button>
