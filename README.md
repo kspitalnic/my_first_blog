@@ -85,7 +85,7 @@ THEN I am able to view comments but I am prompted to log in again before I can a
 </br>
 
 ## Resources
-Link to Repo: https://github.com/kspitalnic/ORM-ECommerce-Challenge13
+Link to Repo: https://github.com/kspitalnic/my_first_blog
 
 Link to Application: https://intense-coast-90794.herokuapp.com/
 
